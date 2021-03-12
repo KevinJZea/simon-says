@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simon Says...</title>
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body id="body">
+    <header class="header">
+        <h1 class="text">Welcome to Simon Says! 👑</h1>
+        <p id="description" class="text">The game consists of <b>5</b> rounds.<br />Can you complete them all?<br />Just follow the color sequence.</p>
+        <p id="instruction" class="hide text">Follow the color sequence!</p>
+        <button id="btn-darkMode" type="button" onclick="handleDarkMode()" class="btn-darkMode">Light Mode</button>
+    </header>
+    
+    <main class="main">
+      
+      <div class="gameboard">
+        <div id="blue" class="color blue left" data-color="blue"></div>
+        <div id="violet" class="color violet right" data-color="violet"></div>
+        <div id="orange" class="color orange left" data-color="orange"></div>
+        <div id="green" class="color green right" data-color="green"></div>
+        <button id="btnStart" class="btn-start" onclick="startGame()">
+          Start the Game!
+        </button>
+      </div>
+    </main>
+
+    <footer class="footer">
+      <!-- <p style="font-size: 16px; color: white;" class="text">Hola</p> -->
+      <p id="win" class="text final-message">Congrats! You won! 🏆<br />Wanna try again?</p>
+
+      <p id="lost" class="text final-message">You lost... 😥<br /> I'm sure you can do it. Try again!</p>
+
+      <button id="play-again" class="hide btn-darkMode" type="button" onclick="location.reload()">Click to Play Again</button>
+      <address class="address">
+        <ul>
+          <li>
+            <a class="text" href="https://github.com/kevinjzea">Author's GitHub</a>
+          </li>
+          <li>
+            <a class="text" href="https://linkedin.com/in/kevinjzea">Author's LinkedIn</a>
+          </li>
+        </ul>
+      </address>
+    </footer>
+    <script src="./simon.js">
+
+    </script>
+  </body>
+</html>
