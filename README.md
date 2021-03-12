@@ -10,5 +10,5 @@ The three HTML, CSS and JavaScript are added to the same index.html file. Noneth
 
 ---
 
-P.S.: This game was created using HTML5, CSS3 and JavaScript Vanilla (no frameworks nor libraries extra).
+P.S. This game was created using HTML5, CSS3 and JavaScript Vanilla (no frameworks nor libraries extra).
 
