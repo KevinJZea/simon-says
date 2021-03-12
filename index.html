@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simon Says...</title>
+  <style>
+    
+    :root {
+      --header-size: 22vh;
+      --footer-size: 22vh;
+      --light-background: #dedede;
+      --light-violet: #e056fd;
+      --light-blue: #7ed6df;
+      --light-green: #badc58;
+      --light-orange: #ffbe76;
+
+      --dark-background: #121f3d;
+      --dark-violet: #be2edd;
+      --dark-blue: #2490fc;
+      --dark-green: #43c300;
+      --dark-orange: #f97308;
+    }
+
+    * {
+      padding: 0;
+      margin: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      font-size: 62.5%;
+    }
+
+    body {
+      background-color: var(--dark-background);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    .header {
+      height: var(--header-size);
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-around;
+    }
+
+    .header h1 {
+      font-size: 2.25rem;
+      color: white;
+    }
+
+    .header p {
+      font-size: 1.3rem;
+      text-align: center;
+      color: white;
+    }
+
+    .btn-darkMode {
+      cursor: pointer;
+      padding: 0.5rem 2rem;
+      border-radius: 1rem;
+      font-size: 1.2rem;
+      background-color: transparent;
+      outline: none;
+      border: 1px solid white;
+      color: white;
+    }
+
+    .btn-darkMode:hover {
+      background-color: #213769;
+    }
+
+    .main {
+      display: flex;
+      align-items: center;
+      height: calc(100vh - var(--header-size) - var(--footer-size));
+    }
+
+    .gameboard {
+      height: calc(100vh - var(--header-size) - var(--footer-size) - 3rem);
+      width: calc(100vh - var(--header-size) - var(--footer-size) - 3rem);
+      border-radius: 50%;
+      overflow: hidden;
+      margin: 0 auto;
+      max-height: 45vh;
+      max-width: 45vh;
+    }
+
+    .btn-start {
+      border: 2px solid var(--dark-background);
+      border-radius: 0.5rem;
+      border: none;
+      width: 230px;
+      height: 60px;
+      font-size: 2.5rem;
+      background-color: #24385b;
+      color: white;
+      position: absolute;
+      top: calc(50% - 25px);
+      left: calc(50% - 115px);
+    }
+
+    .btn-start:hover {
+      cursor: pointer;
+      background-color: #40587c;
+    }
+
+    .color {
+      width: 50%;
+      height: 50%;
+      display: inline-block;
+      cursor: pointer;
+    }
+
+    .left {
+      float: left;
+    }
+
+    .right {
+      float: left;
+    }
+
+    .blue {
+      background: var(--dark-blue);
+    }
+
+    .blue.light {
+      background: var(--light-blue);
+    }
+
+    .violet {
+      background: var(--dark-violet);
+    }
+
+    .violet.light {
+      background: var(--light-violet);
+    }
+
+    .orange {
+      background: var(--dark-orange);
+    }
+
+    .orange.light {
+      background: var(--light-orange);
+    }
+
+    .green {
+      background: var(--dark-green);
+    }
+
+    .green.light {
+      background: var(--light-green);
+    }
+
+    .hide {
+      display: none;
+    }
+
+    .footer {
+      height: var(--footer-size);
+      width: 90%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-around;
+    }
+
+    .final-message {
+      display: none;
+      font-size: 1.25rem;
+      margin: 0;
+      color: white;
+      text-align: center;
+    }
+
+    .address {
+      width: 100%;
+    }
+
+    .address ul {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+    }
+
+    .address ul > li {
+      list-style: none;
+    }
+
+    .address ul > li > a {
+      text-decoration: none;
+      color: white;
+      font-size: 1.5rem;
+    }
+
+    .address ul > li > a:hover {
+      text-decoration: underline;
+    }
+
+    @media (min-width: 400px) {
+      .header h1 {
+        font-size: 2.5rem;
+      }
+
+      .header p {
+        font-size: 1.75rem;
+      }
+
+      .btn-darkMode {
+        padding: 0.5rem 2rem;
+        border-radius: 1rem;
+        font-size: 1.5rem;
+      }
+
+      .btn-start {
+        width: 300px;
+        height: 70px;
+        font-size: 3rem;
+        top: calc(50% - 30px);
+        left: calc(50% - 150px);
+      }
+
+      .address ul > li > a {
+        font-size: 1.75rem;
+      }
+
+      .final-message {
+        font-size: 1.8rem;
+      }
+    }
+
+    @media (min-width: 600px) {
+      .header h1 {
+        font-size: 3rem;
+      }
+
+      .header p {
+        font-size: 2.5rem;
+      }
+
+      .btn-darkMode {
+        padding: 0.5rem 2rem;
+        border-radius: 1rem;
+        font-size: 1.8rem;
+      }
+
+      .gameboard {
+        max-height: 60vh;
+        max-width: 60vh;
+      }
+
+      .btn-start {
+        width: 400px;
+        height: 100px;
+        font-size: 4.2rem;
+        width: 400px;
+        height: 100px;
+        top: calc(50% - 60px);
+        left: calc(50% - 200px);
+      }
+
+      .address ul > li > a {
+        font-size: 2.5rem;
+      }
+
+      .final-message {
+        font-size: 2rem;
+      }
+    }
+
+    
+  </style>
+</head>
+<body id="body">
+    <header class="header">
+        <h1 class="text">Welcome to Simon Says! 👑</h1>
+        <p id="description" class="text">The game consists in <b>5</b> rounds.<br />Can you complete them all?<br />Just follow the path.</p>
+        <p id="instruction" class="hide text">Follow the path!</p>
+        <button id="btn-darkMode" type="button" onclick="handleDarkMode()" class="btn-darkMode">Light Mode</button>
+    </header>
+    
+    <main class="main">
+      
+      <div class="gameboard">
+        <div id="blue" class="color blue left" data-color="blue"></div>
+        <div id="violet" class="color violet right" data-color="violet"></div>
+        <div id="orange" class="color orange left" data-color="orange"></div>
+        <div id="green" class="color green right" data-color="green"></div>
+        <button id="btnStart" class="btn-start" onclick="startGame()">
+          Start the Game!
+        </button>
+      </div>
+    </main>
+
+    <footer class="footer">
+      <!-- <p style="font-size: 16px; color: white;" class="text">Hola</p> -->
+      <p id="win" class="text final-message">Congrats! You won! 🏆<br />Wanna try again?</p>
+
+      <p id="lost" class="text final-message">You lost... 😥<br /> I'm sure you can do it. Try again!</p>
+
+      <button id="play-again" class="hide btn-darkMode" type="button" onclick="location.reload()">Click to Play Again</button>
+      <address class="address">
+        <ul>
+          <li>
+            <a class="text" href="https://github.com/kevinjzea">Author's GitHub</a>
+          </li>
+          <li>
+            <a class="text" href="https://linkedin.com/in/kevinjzea">Author's LinkedIn</a>
+          </li>
+        </ul>
+      </address>
+    </footer>
+    <script>
+      const blue = document.getElementById("blue");
+      const violet = document.getElementById("violet");
+      const orange = document.getElementById("orange");
+      const green = document.getElementById("green");
+      const btnStart = document.getElementById("btnStart");
+      const LAST_LEVEL = 5;
+
+      class Game {
+        constructor() {
+        this.initialize = this.initialize.bind(this);
+        this.initialize();
+        this.generateSequence();
+        setTimeout(this.nextLevel, 500);
+      }
+
+      initialize() {
+        this.nextLevel = this.nextLevel.bind(this);
+        this.chooseColor = this.chooseColor.bind(this);
+        this.toggleBtnStart();
+        this.level = 1;
+        this.colors = {
+          blue,
+          violet,
+          orange,
+          green,
+        };
+      }
+
+      toggleBtnStart() {
+        if (btnStart.classList.contains("hide")) {
+          btnStart.classList.remove("hide");
+        } else {
+          btnStart.classList.add("hide");
+        }
+      }
+
+      generateSequence() {
+        this.sequence = new Array(LAST_LEVEL)
+          .fill(0)
+          .map((n) => Math.floor(Math.random() * 4));
+      }
+
+      nextLevel() {
+        this.sublevel = 0;
+        this.illuminateSequence();
+        this.addEventsClick();
+      }
+
+      transformNumberToColor(number) {
+        switch (number) {
+          case 0:
+            return "blue";
+          case 1:
+            return "violet";
+          case 2:
+            return "orange";
+          case 3:
+            return "green";
+        }
+      }
+
+      transformColorToNumber(color) {
+        switch (color) {
+          case "blue":
+            return 0;
+          case "violet":
+            return 1;
+          case "orange":
+            return 2;
+          case "green":
+            return 3;
+        }
+      }
+
+      illuminateSequence() {
+        for (let i = 0; i < this.level; i++) {
+          let color = this.transformNumberToColor(this.sequence[i]);
+
+          setTimeout(() => this.illuminateColor(color), 750 * i);
+        }
+      }
+
+      illuminateColor(color) {
+        this.colors[color].classList.add("light");
+        setTimeout(() => this.turnColorOff(color), 350);
+      }
+
+      turnColorOff(color) {
+        this.colors[color].classList.remove("light");
+      }
+
+      addEventsClick() {
+        this.colors.blue.addEventListener("click", this.chooseColor);
+        this.colors.green.addEventListener("click", this.chooseColor);
+        this.colors.violet.addEventListener("click", this.chooseColor);
+        this.colors.orange.addEventListener("click", this.chooseColor);
+      }
+
+      deleteEventsClick() {
+        this.colors.blue.removeEventListener("click", this.chooseColor);
+        this.colors.green.removeEventListener("click", this.chooseColor);
+        this.colors.violet.removeEventListener("click", this.chooseColor);
+        this.colors.orange.removeEventListener("click", this.chooseColor);
+      }
+
+      chooseColor(ev) {
+        const colorName = ev.target.dataset.color;
+        const colorNumber = this.transformColorToNumber(colorName);
+        this.illuminateColor(colorName);
+
+        if (colorNumber === this.sequence[this.sublevel]) {
+          this.sublevel++;
+
+          if (this.sublevel === this.level) {
+            this.level++;
+            this.deleteEventsClick();
+
+            if (this.level === LAST_LEVEL + 1) {
+              this.wonGame();
+            } else {
+              setTimeout(this.nextLevel, 1000);
+            }
+          }
+        } else {
+          this.lostGame();
+        }
+      }
+
+      wonGame() {
+        document.getElementById("play-again").style.display = "block";
+        this.block("win");
+        this.deleteEventsClick();
+      }
+
+      lostGame() {
+        document.getElementById("play-again").style.display = "block";
+        this.block("lost");
+        this.deleteEventsClick();
+      }
+
+      block(info) {
+        document.getElementById(info).style.display = "block";
+      }
+    }
+
+    function startGame() {
+      document.getElementById("description").style.display = "none";
+      document.getElementById("instruction").style.display = "block";
+
+      let width =
+        window.innerWidth ||
+        document.documentElement.clientWidth ||
+        document.body.clientWidth;
+
+      if (width < 400) {
+        document.getElementById("instruction").style.fontSize = "1.8rem";
+      } else if (400 < width && width < 600) {
+        document.getElementById("instruction").style.fontSize = "2.25rem";
+      } else if (width > 600) {
+        document.getElementById("instruction").style.fontSize = "3rem";
+      }
+
+      window.game = new Game();
+    }
+
+    /* Style changes */
+
+    const body = document.getElementById("body");
+    const btnDarkMode = document.getElementById("btn-darkMode");
+    const btnPlayAgain = document.getElementById("play-again");
+    const text = document.getElementsByClassName("text");
+
+    function handleDarkMode() {
+      if (btnDarkMode.innerHTML === "Light Mode") {
+        body.style.backgroundColor = "#ffffff";
+        btnDarkMode.innerHTML = "Dark Mode";
+        btnDarkMode.style.backgroundColor = "transparent";
+        btnDarkMode.style.color = "#000";
+        btnDarkMode.style.border = "1px solid #000";
+        btnStart.style.backgroundColor = "#ffffff";
+        btnStart.style.color = "#000000";
+        btnStart.style.border = "2px solid #7f8283";
+        btnPlayAgain.style.backgroundColor = "transparent";
+        btnPlayAgain.style.color = "#000";
+        btnPlayAgain.style.border = "1px solid #000";
+
+        for (let i = 0; i < text.length; i++) {
+          text[i].style.color = "#000";
+        }
+      } else if (btnDarkMode.innerHTML === "Dark Mode") {
+        body.style.backgroundColor = "#121f3d";
+        btnDarkMode.innerHTML = "Light Mode";
+        btnDarkMode.style.backgroundColor = "transparent";
+        btnDarkMode.style.color = "#fff";
+        btnDarkMode.style.border = "1px solid #fff";
+        btnStart.style.backgroundColor = "#24385b";
+        btnStart.style.color = "#ffffff";
+        btnStart.style.border = "2px solid #121f3d";
+        btnPlayAgain.style.backgroundColor = "transparent";
+        btnPlayAgain.style.color = "#fff";
+        btnPlayAgain.style.border = "1px solid #fff";
+
+        for (let i = 0; i < text.length; i++) {
+          text[i].style.color = "#fff";
+        }
+      }
+    }
+    </script>
+  </body>
+</html>
